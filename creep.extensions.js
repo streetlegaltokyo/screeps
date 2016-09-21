@@ -6,6 +6,7 @@ var creepExtensions = {
             return this.pos.findClosestByPath(FIND_MY_SPAWNS);
         };
 
+        //Container
         Creep.prototype.findClosestContainer = function() {
             return this.pos.findClosestByPath(FIND_STRUCTURES, {
                 filter: function(c) {
