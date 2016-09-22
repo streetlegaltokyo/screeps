@@ -16,7 +16,7 @@ module.exports.loop = function () {
     var miners = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner');
     var melees = _.filter(Game.creeps, (creep) => creep.memory.role == 'melee');
 
-    if(melees.length < 0 && Game.getObjectById('57cb5c0b1ba46da95cd26d54')) {
+    if(melees.length < 0 && Game.getObjectById('57cb5c20c48201443139abc9')) {
         roleMelee.create();
     }
 

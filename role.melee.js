@@ -14,7 +14,7 @@ var meleeBuilder = {
         });
     },
     run: function(creep) {
-        var target = Game.getObjectById('57cb5c0b1ba46da95cd26d54');
+        var target = Game.getObjectById('57cb5c20c48201443139abc9');
         if(target) {
             if(creep.attack(target) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(target);
