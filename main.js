@@ -16,7 +16,7 @@ module.exports.loop = function () {
     var miners = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner');
     var melees = _.filter(Game.creeps, (creep) => creep.memory.role == 'melee');
 
-    if(melees.length < 1 && Game.getObjectById('57cb5c0b1ba46da95cd26d54')) {
+    if(melees.length < 0 && Game.getObjectById('57cb5c0b1ba46da95cd26d54')) {
         roleMelee.create();
     }
 
@@ -24,7 +24,7 @@ module.exports.loop = function () {
         roleMiner.create();
     }
 
-    if(harvesters.length < 2) {
+    if(harvesters.length < 1) {
         roleHarvester.create();
     }
 
@@ -32,7 +32,7 @@ module.exports.loop = function () {
         roleUpgrader.create();
     }
 
-    if(builders.length < 2 && Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES).length > 0) {
+    if(builders.length < 1 && Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES).length > 0) {
         roleBuilder.create();
     }
     else if (Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES).length == 0) {
