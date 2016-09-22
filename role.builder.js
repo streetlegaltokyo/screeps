@@ -31,34 +31,10 @@ var roleBuilder = {
             }
 	    }
 	    else {
-	        /*var container = helpers.findClosestContainer(creep);
-	        if (!container) creep.say('404-Container');
-            if(creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(container);
-            }*/
-
-
-
-            var container = helpers.findClosestContainer(creep);
-                if(container) {
-                    //sometimes creeps are returning -6 result???
-                    //console.log(JSON.stringify(container))
-                    var result = creep.withdraw(container, RESOURCE_ENERGY);
-                    if(result == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(container);
-                    } else if (result != OK) {
-                        creep.say("c");
-                    }
-                }
-                else {
-                    var source = helpers.findSource(creep);
-                    var result = creep.harvest(source, RESOURCE_ENERGY);
-                    if(result == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(source);
-                    } else if (result != OK) {
-                        creep.say("s");
-                    }
-                }
+        var container = creep.findClosestContainerWithEnergy();
+        if(creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+            creep.moveTo(container);
+        }
 	    }
 	}
 };
