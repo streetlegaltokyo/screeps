@@ -14,7 +14,6 @@ var roleRepairer = {
         });
     },
     run: function(creep) {
-
         if(creep.memory.repairing && creep.carry.energy == 0) {
             creep.memory.repairing = false;
         }
@@ -34,41 +33,15 @@ var roleRepairer = {
                 }
             }
             else {
-                var structure = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: function(s) {return s.hits < (s.hitsMax*.7) && s.structureType != STRUCTURE_WALL}});
-                console.log(JSON.stringify(structure));
+                var structure = creep.findClosestStructureNeedingRepair();
                 creep.memory.structure = structure.id;
             }
         }
         else {
-            /*var containers = Game.spawns.Spawn1.room.find(FIND_STRUCTURES, {
-                filter: function(c) {
-                    return c.structureType == STRUCTURE_CONTAINER &&
-                        c.store.energy > 0;
-                    }
-                });
-            var container = creep.pos.findClosestByRange(containers);
-            if(creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(container);
-            }*/
-
-            var container = helpers.findClosestContainer(creep);
-                if(container) {
-                    var result = creep.withdraw(container, RESOURCE_ENERGY);
-                    if(result == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(container);
-                    } else if (result != OK) {
-                        creep.say(result);
-                    }
-                }
-                else {
-                    var source = helpers.findSource(creep);
-                    var result = creep.harvest(source, RESOURCE_ENERGY);
-                    if(result == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(source);
-                    } else if (result != OK) {
-                        creep.say(result);
-                    }
-                }
+          var container = creep.findClosestContainerWithEnergy();
+          if(creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+              creep.moveTo(container);
+          }
         }
     }
 };
