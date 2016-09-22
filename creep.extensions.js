@@ -40,7 +40,7 @@ var creepExtensions = {
 		};
 
 		Creep.prototype.findClosestStructureNeedingRepair = function() {
-				return this.pos.findClosestByPath(FIND_STRUCTURES, {filter: function(s) {return s.hits < (s.hitsMax*.7)}});
+				return this.pos.findClosestByPath(FIND_STRUCTURES, {filter: function(s) {return s.hits < (s.hitsMax*.7) && s.structureType != STRUCTURE_WALL}});
 		};
 
 		Creep.prototype.findClosestConstructionSite = function() {

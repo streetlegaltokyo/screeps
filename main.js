@@ -32,7 +32,7 @@ module.exports.loop = function () {
         roleUpgrader.create();
     }
 
-    if(builders.length < 1 && Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES).length > 0) {
+    if(builders.length < 2 && Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES).length > 0) {
         roleBuilder.create();
     }
     else if (Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES).length == 0) {
