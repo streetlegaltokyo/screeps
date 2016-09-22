@@ -3,7 +3,9 @@ var helpers = require('global.helpers');
 var roleUpgrader = {
     create: function() {
         var tiers = [
-            {body:[WORK,CARRY,MOVE]}
+            {body:[WORK,CARRY,MOVE]},
+            {body:[WORK,CARRY,CARRY,MOVE]},
+            {body:[WORK,CARRY,CARRY,CARRY,MOVE]}
         ];
 
         _.forEach(tiers, function(tier){
@@ -25,18 +27,15 @@ var roleUpgrader = {
 	    if(creep.memory.upgrading) {
             if(creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(creep.room.controller);
+                //creep.placeRoadUnderMe();
             }
         }
         else {
-            var containers = Game.spawns.Spawn1.room.find(FIND_STRUCTURES, {
-                filter: function(s) {
-                    return s.structureType == STRUCTURE_SPAWN && s.energy > 0;
-                    }
-                });
-            var container = creep.pos.findClosestByRange(containers);
-            if(creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(container);
-            }
+          var container = creep.findClosestContainerWithEnergy();
+          if(creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+              creep.moveTo(container);
+              //creep.placeRoadUnderMe();
+          }
         }
 	}
 };
