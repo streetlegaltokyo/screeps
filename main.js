@@ -20,7 +20,7 @@ module.exports.loop = function () {
         roleMelee.create();
     }
 
-    if(miners.length < 5) {
+    if(miners.length < 6) {
         roleMiner.create();
     }
 

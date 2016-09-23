@@ -1,39 +1,43 @@
 var helpers = require('global.helpers');
+var roleUpgrader = require('role.upgrader');
 
 var roleHarvester = {
     create: function() {
-        var tiers = [
-            {body:[WORK,CARRY,MOVE]}
-        ];
+        var tiers = [{
+            body: [WORK, CARRY, MOVE]
+        }];
 
-        _.forEach(tiers, function(tier){
-            if(Game.spawns.Spawn1.canCreateCreep(tier.body, undefined, {role: 'harvester'}) == OK) {
-                var name = Game.spawns.Spawn1.createCreep(tier.body, undefined, {role: 'harvester'});
+        _.forEach(tiers, function(tier) {
+            if (Game.spawns.Spawn1.canCreateCreep(tier.body, undefined, {
+                    role: 'harvester'
+                }) == OK) {
+                var name = Game.spawns.Spawn1.createCreep(tier.body, undefined, {
+                    role: 'harvester'
+                });
                 console.log("Spawning Harvester, " + name);
             }
         });
     },
     run: function(creep) {
-        if(creep.carry.energy < creep.carryCapacity) {
+        if (creep.carry.energy < creep.carryCapacity) {
             var energy = creep.pos.findClosestByRange(FIND_DROPPED_ENERGY);
-            if(energy)
-            {
-                if(creep.pickup(energy) == ERR_NOT_IN_RANGE) {
+            if (energy) {
+                if (creep.pickup(energy) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(energy);
                 }
-            }
-            else {
+            } else {
                 var container = creep.findClosestContainerWithEnergy();
-                if(creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                if (creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(container);
                 }
             }
-        }
-        else {
+        } else if(creep.findClosestPlaceToDumpEnergy()) {
             var target = creep.findClosestPlaceToDumpEnergy();
-            if(target && creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-              creep.moveTo(target);
+            if (target && creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(target);
             }
+        } else {
+          roleUpgrader.run(creep);
         }
     }
 };
