@@ -55,16 +55,16 @@ var findSourceToHarvest = function(creep) {
             return !p.hasObstacle
         }).length;
         var shouldSpawn = minersAtSpawn < spacesAtSpawnAvailable
-        mySources.push([{
+        mySources.push({
             source: s,
             shouldSpawn: shouldSpawn
-        }]);
+        });
     });
     //console.log(JSON.stringify(mySources));
 
-    var sourcesWithSpaces = _.filter(mySources, function(ms) { return s.shouldSpawn});
+    var sourcesWithSpaces = _.filter(mySources, function(ms) { return ms.shouldSpawn;});
 
-    return sourcesWithSpaces[0] ? sourcesWithSpaces[0] : null;
+    return sourcesWithSpaces[0] ? sourcesWithSpaces[0].source : null;
 };
 
 var roleMiner = {
