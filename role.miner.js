@@ -62,9 +62,10 @@ var findSourceToHarvest = function(creep) {
     });
     //console.log(JSON.stringify(mySources));
 
-    var sourcesWithSpaces = _.filter(mySources, function(ms) { return ms.shouldSpawn;});
-
-    return sourcesWithSpaces[0] ? sourcesWithSpaces[0].source : null;
+    var mySourcesWithSpaces = _.filter(mySources, function(ms) { return ms.shouldSpawn;});
+    var sourcesWithSpaces = _.map(mySourcesWithSpaces, function(s) { return s.source;});
+    var source = creep.pos.findClosestByPath(sourcesWithSpaces);
+    return source;
 };
 
 var roleMiner = {

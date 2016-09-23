@@ -20,11 +20,11 @@ module.exports.loop = function () {
         roleMelee.create();
     }
 
-    if(miners.length < 2) {
+    if(miners.length < 5) {
         roleMiner.create();
     }
 
-    if(harvesters.length < 1) {
+    if(harvesters.length < 2) {
         roleHarvester.create();
     }
 
