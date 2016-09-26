@@ -40,7 +40,29 @@ var creepExtensions = {
 		};
 
 		Creep.prototype.findClosestStructureNeedingRepair = function() {
-				return this.pos.findClosestByPath(FIND_STRUCTURES, {filter: function(s) {return s.hits < (s.hitsMax*.7) && s.structureType != STRUCTURE_WALL}});
+			var reallyWeak = this.pos.findClosestByPath(FIND_STRUCTURES, {
+				filter: function(s) {
+					switch (s.structureType) {
+						case STRUCTURE_WALL:
+							return s.hits < 100;
+						default:
+							return s.hits < (s.hitsMax*.05);
+					}
+				}
+			});
+			
+			if (reallyWeak.length > 0) return reallyWeak;
+			
+			return this.pos.findClosestByPath(FIND_STRUCTURES, {
+				filter: function(s) {
+					switch (s.structureType) {
+						case STRUCTURE_WALL:
+							return 0; // Don't upgrade the walls too much... This needs some adjustments later.
+						default:
+							return s.hits < (s.hitsMax*.7);
+					}
+				}
+			});
 		};
 
 		Creep.prototype.findClosestConstructionSite = function() {
