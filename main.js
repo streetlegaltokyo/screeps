@@ -40,7 +40,7 @@ module.exports.loop = function () {
     }
 
     var needsRepairCount = Game.spawns['Spawn1'].room.find(FIND_STRUCTURES, {filter: function(s){return s.hits < (s.hitsMax*.7) && s.structureType != STRUCTURE_WALL}}).length;
-    if(repairers.length < 1 && needsRepairCount > 0){
+    if(repairers.length < 4 && needsRepairCount > 0){
         roleRepairer.create();
     }
     else if (needsRepairCount == 0) {
