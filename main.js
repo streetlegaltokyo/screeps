@@ -4,11 +4,14 @@ var roleBuilder = require('role.builder');
 var roleRepairer = require('role.repairer');
 var roleMiner = require('role.miner');
 var roleMelee = require('role.melee');
+var towerStructure = require('structure.tower');
 var helpers = require('global.helpers');
 var creepExtensions = require('creep.extensions');
+var towerExtensions = require('tower.extensions');
 
 module.exports.loop = function () {
-    creepExtensions.run();
+    creepExtensions.register();
+    towerExtensions.register();
     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
     var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
     var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
@@ -68,4 +71,8 @@ module.exports.loop = function () {
             roleMelee.run(creep);
         }
     }
+
+    _.forEach(towers, function(tower) {
+      towerStructure.run(tower);
+    })
 }

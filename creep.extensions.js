@@ -1,5 +1,5 @@
 var creepExtensions = {
-	run: function(creep)
+	register: function(creep)
 	{
 		Creep.prototype.findClosestSpawn = function() {
 				return this.pos.findClosestByPath(FIND_MY_SPAWNS);
@@ -50,9 +50,9 @@ var creepExtensions = {
 					}
 				}
 			});
-			
+
 			if (reallyWeak.length > 0) return reallyWeak;
-			
+
 			return this.pos.findClosestByPath(FIND_STRUCTURES, {
 				filter: function(s) {
 					switch (s.structureType) {
