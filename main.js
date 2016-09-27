@@ -18,6 +18,7 @@ module.exports.loop = function () {
     var repairers = _.filter(Game.creeps, (creep) => creep.memory.role == 'repairer');
     var miners = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner');
     var melees = _.filter(Game.creeps, (creep) => creep.memory.role == 'melee');
+    var towers = _.filter(Game.structures, (structure) => structure.structureType == STRUCTURE_TOWER);
 
     if(melees.length < 0 && Game.getObjectById('57cb5c20c48201443139abc9')) {
         roleMelee.create();
