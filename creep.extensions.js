@@ -51,7 +51,7 @@ var creepExtensions = {
 				}
 			});
 
-			if (reallyWeak.length > 0) return reallyWeak;
+			if (reallyWeak) return reallyWeak;
 
 			return this.pos.findClosestByPath(FIND_STRUCTURES, {
 				filter: function(s) {
