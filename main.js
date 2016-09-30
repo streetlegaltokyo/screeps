@@ -19,36 +19,31 @@ module.exports.loop = function () {
     var miners = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner');
     var melees = _.filter(Game.creeps, (creep) => creep.memory.role == 'melee');
     var towers = _.filter(Game.structures, (structure) => structure.structureType == STRUCTURE_TOWER);
+    var needsRepairCount = Game.spawns['Spawn1'].room.find(FIND_STRUCTURES, {filter: function(s){return s.hits < (s.hitsMax*.7) && s.structureType != STRUCTURE_WALL}}).length;
 
-    if(melees.length < 0 && Game.getObjectById('57cb5c20c48201443139abc9')) {
-        roleMelee.create();
-    }
 
     if(miners.length < 6) {
         roleMiner.create();
     }
-
-    if(harvesters.length < 2) {
+    else if(harvesters.length < 2) {
         roleHarvester.create();
     }
-
-    if(upgraders.length < 2) {
+    else if(upgraders.length < 2) {
         roleUpgrader.create();
     }
-
-    if(builders.length < 2 && Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES).length > 0) {
+    else if(builders.length < 2 && Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES).length > 0) {
         roleBuilder.create();
     }
-    else if (Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES).length == 0) {
-        _.forEach(builders, function(builder) { builder.suicide(); });
-    }
-
-    var needsRepairCount = Game.spawns['Spawn1'].room.find(FIND_STRUCTURES, {filter: function(s){return s.hits < (s.hitsMax*.7) && s.structureType != STRUCTURE_WALL}}).length;
-    if(repairers.length < 4 && needsRepairCount > 0){
+    else if(repairers.length < 4 && needsRepairCount > 0){
         roleRepairer.create();
     }
-    else if (needsRepairCount == 0) {
+
+    if (needsRepairCount == 0) {
         _.forEach(repairers, function(repairer){ repairer.suicide(); });
+    }
+
+    if (Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES).length == 0) {
+        _.forEach(builders, function(builder) { builder.suicide(); });
     }
 
     for(var name in Game.creeps) {
