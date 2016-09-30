@@ -21,7 +21,7 @@ var roleHarvester = {
     run: function(creep) {
         if (creep.carry.energy < creep.carryCapacity) {
             var energy = creep.pos.findClosestByRange(FIND_DROPPED_ENERGY);
-            if (energy) {
+            if (energy && creep.targetIsInRange(energy, 4)) {
                 if (creep.pickup(energy) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(energy);
                 }

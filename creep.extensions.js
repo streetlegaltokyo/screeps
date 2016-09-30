@@ -72,6 +72,10 @@ var creepExtensions = {
 		Creep.prototype.placeRoadUnderMe = function() {
 			return this.pos.createConstructionSite(STRUCTURE_ROAD);
 		};
+
+		Creep.prototype.targetIsInRange = function(target, n) {
+			return this.pos.getRangeTo(target) <= n;
+		};
 	}
 };
 
