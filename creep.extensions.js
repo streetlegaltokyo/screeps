@@ -25,7 +25,7 @@ var creepExtensions = {
 
 				var priority3 = this.pos.findClosestByPath(FIND_STRUCTURES, {
 						filter: (structure) => {
-								return (structure.structureType == STRUCTURE_STORAGE) && structure.energy < structure.energyCapacity;
+								return (structure.structureType == STRUCTURE_STORAGE) && structure.store.energy < structure.storeCapacity;
 						}
 				});
 
