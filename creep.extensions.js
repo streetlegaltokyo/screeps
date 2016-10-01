@@ -6,12 +6,30 @@ var creepExtensions = {
 		};
 
 		Creep.prototype.findClosestPlaceToDumpEnergy = function() {
-				return this.pos.findClosestByPath(FIND_STRUCTURES, {
+				var priority1 = this.pos.findClosestByPath(FIND_STRUCTURES, {
 						filter: (structure) => {
 								return (structure.structureType == STRUCTURE_EXTENSION ||
 												structure.structureType == STRUCTURE_SPAWN) && structure.energy < structure.energyCapacity;
 						}
 				});
+
+				if(priority1) { return priority1; }
+
+				var priority2 = this.pos.findClosestByPath(FIND_STRUCTURES, {
+						filter: (structure) => {
+								return (structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
+						}
+				});
+
+				if(priority2) { return priority2; }
+
+				var priority3 = this.pos.findClosestByPath(FIND_STRUCTURES, {
+						filter: (structure) => {
+								return (structure.structureType == STRUCTURE_STORAGE) && structure.energy < structure.energyCapacity;
+						}
+				});
+
+				return priority3;
 		};
 
 		Creep.prototype.findClosestContainerThatIsNotFull = function() {
