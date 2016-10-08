@@ -82,6 +82,20 @@ var creepExtensions = {
 			});
 		};
 
+		Creep.prototype.findWeakestStructureOfType = function(structureTypes) {
+			structureTypes = structureTypes || [];
+
+			var structures = this.room.find(FIND_STRUCTURES, {
+				filter: function(s) {
+					return s.hits < (s.hitsMax*.7) && _.includes(structureTypes, s.structureType);
+				}
+			});
+
+			var orderedStructures = _.sortByOrder(structures, ['hits']);
+
+			return _.first(orderedStructures);
+		};
+
 		Creep.prototype.findClosestConstructionSite = function() {
 				return this.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
 		};

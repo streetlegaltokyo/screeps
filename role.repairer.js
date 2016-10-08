@@ -34,8 +34,9 @@ var roleRepairer = {
                 }
             }
             else {
-                var structure = creep.findClosestStructureNeedingRepair();
-                creep.memory.structure = structure.id;
+              var structure = creep.findWeakestStructureOfType([STRUCTURE_CONTAINER, STRUCTURE_ROAD, STRUCTURE_TOWER]);
+              structure = structure || creep.findWeakestStructureOfType([STRUCTURE_WALL, STRUCTURE_RAMPART]);
+              creep.memory.structure = structure.id;
             }
         }
         else {
