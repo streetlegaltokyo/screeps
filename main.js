@@ -25,16 +25,16 @@ module.exports.loop = function () {
     if(miners.length < 4) {
         roleMiner.create();
     }
-    else if(harvesters.length < 2) {
+    else if(harvesters.length < 1) {
         roleHarvester.create();
     }
-    else if(upgraders.length < 3) {
+    else if(upgraders.length < 1) {
         roleUpgrader.create();
     }
     else if(builders.length < 2 && Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES).length > 0) {
         roleBuilder.create();
     }
-    else if(repairers.length < 3 && needsRepairCount > 0){
+    else if(repairers.length < 2 && needsRepairCount > 0){
         roleRepairer.create();
     }
 

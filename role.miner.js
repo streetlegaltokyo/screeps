@@ -80,8 +80,6 @@ var roleMiner = {
             body: [WORK, WORK, WORK, WORK, CARRY, MOVE]
         }, {
             body: [WORK, WORK, WORK, WORK, WORK, CARRY, MOVE]
-        }, {
-            body: [WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE]
         }];
 
         _.forEach(tiers, function(tier) {
