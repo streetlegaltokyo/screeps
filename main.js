@@ -31,7 +31,7 @@ module.exports.loop = function () {
     else if(upgraders.length < 3) {
         roleUpgrader.create();
     }
-    else if(builders.length < 1 && Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES).length > 0) {
+    else if(builders.length < 2 && Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES).length > 0) {
         roleBuilder.create();
     }
     else if(repairers.length < 3 && needsRepairCount > 0){

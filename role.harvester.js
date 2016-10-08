@@ -3,9 +3,11 @@ var roleUpgrader = require('role.upgrader');
 
 var roleHarvester = {
     create: function() {
-        var tiers = [{
-            body: [WORK, CARRY, MOVE]
-        }];
+        var tiers = [
+            { body: [CARRY, CARRY, MOVE, MOVE] },
+            { body: [CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE] },
+            { body: [CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE] },
+            ];
 
         _.forEach(tiers, function(tier) {
             if (Game.spawns.Spawn1.canCreateCreep(tier.body, undefined, {
@@ -19,7 +21,12 @@ var roleHarvester = {
         });
     },
     run: function(creep) {
-        if (creep.carry.energy < creep.carryCapacity) {
+        if(creep.carry.energy > 0) {
+            var target = creep.findClosestPlaceToDumpEnergy();
+            if (target && creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(target);
+            }
+        } else if(creep.carry.energy == 0) {
             var energy = creep.pos.findClosestByRange(FIND_DROPPED_ENERGY);
             if (energy && creep.targetIsInRange(energy, 4)) {
                 if (creep.pickup(energy) == ERR_NOT_IN_RANGE) {
@@ -31,13 +38,8 @@ var roleHarvester = {
                     creep.moveTo(container);
                 }
             }
-        } else if(creep.findClosestPlaceToDumpEnergy()) {
-            var target = creep.findClosestPlaceToDumpEnergy();
-            if (target && creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(target);
-            }
         } else {
-          roleUpgrader.run(creep);
+            roleUpgrader.run(creep);
         }
     }
 };

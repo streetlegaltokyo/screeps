@@ -4,8 +4,10 @@ var roleUpgrader = {
     create: function() {
         var tiers = [
             {body:[WORK,CARRY,MOVE]},
-            {body:[WORK,CARRY,CARRY,MOVE]},
-            {body:[WORK,CARRY,CARRY,CARRY,MOVE]}
+            {body:[WORK,WORK,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE]},
+            {body:[WORK,WORK,WORK,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE,MOVE]},
+            {body:[WORK,WORK,WORK,WORK,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE]},
+            {body:[WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE]}
         ];
 
         _.forEach(tiers, function(tier){
