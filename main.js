@@ -19,7 +19,7 @@ module.exports.loop = function () {
     var miners = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner');
     var melees = _.filter(Game.creeps, (creep) => creep.memory.role == 'melee');
     var towers = _.filter(Game.structures, (structure) => structure.structureType == STRUCTURE_TOWER);
-    var needsRepairCount = Game.spawns['Spawn1'].room.find(FIND_STRUCTURES, {filter: function(s){return s.hits < (s.hitsMax*.7) && s.structureType != STRUCTURE_WALL}}).length;
+    var needsRepairCount = Game.spawns['Spawn1'].room.find(FIND_STRUCTURES, {filter: function(s){return s.hits < (s.hitsMax*.7)}}).length;
 
 
     if(miners.length < 4) {
@@ -34,7 +34,7 @@ module.exports.loop = function () {
     else if(builders.length < 1 && Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES).length > 0) {
         roleBuilder.create();
     }
-    else if(repairers.length < 1 && needsRepairCount > 0){
+    else if(repairers.length < 3 && needsRepairCount > 0){
         roleRepairer.create();
     }
 

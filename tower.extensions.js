@@ -3,7 +3,21 @@ var towerExtensions = {
     StructureTower.prototype.findClosestHostileCreep = function() {
       return this.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
     };
-    
+
+    StructureTower.prototype.findWeakestStructureOfType = function(structureTypes) {
+			structureTypes = structureTypes || [];
+
+			var structures = this.room.find(FIND_STRUCTURES, {
+				filter: function(s) {
+					return s.hits < (s.hitsMax*.7) && _.includes(structureTypes, s.structureType);
+				}
+			});
+
+			var orderedStructures = _.sortByOrder(structures, ['hits']);
+
+			return _.first(orderedStructures);
+		};
+
     StructureTower.prototype.findClosestStructureNeedingRepair = function() {
 			var reallyWeak = this.pos.findClosestByPath(FIND_STRUCTURES, {
 				filter: function(s) {

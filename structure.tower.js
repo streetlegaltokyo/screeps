@@ -6,11 +6,14 @@ var tower = {
       return OK;
     };
 
-    // var structure = tower.findClosestStructureNeedingRepair();
-    // if (structure) {
-    //   tower.repair(structure);
-    //   return OK;
-    // }
+    //var structure = tower.findClosestStructureNeedingRepair();
+    if(tower.energy > 500) {
+        var structure = tower.findWeakestStructureOfType([STRUCTURE_CONTAINER, STRUCTURE_ROAD, STRUCTURE_TOWER, STRUCTURE_WALL, STRUCTURE_RAMPART]);
+        if (structure) {
+          tower.repair(structure);
+          return OK;
+        }
+    }
   }
 };
 
