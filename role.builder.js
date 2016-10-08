@@ -35,7 +35,14 @@ var roleBuilder = {
         if(creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
             creep.moveTo(container);
         }
-	    }
+
+            if(!container) {
+                var source = creep.findClosestSource();
+                if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(source);
+                }
+            }
+        }
 	}
 };
 

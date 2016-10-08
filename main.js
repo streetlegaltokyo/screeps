@@ -22,19 +22,19 @@ module.exports.loop = function () {
     var needsRepairCount = Game.spawns['Spawn1'].room.find(FIND_STRUCTURES, {filter: function(s){return s.hits < (s.hitsMax*.7) && s.structureType != STRUCTURE_WALL}}).length;
 
 
-    if(miners.length < 6) {
+    if(miners.length < 4) {
         roleMiner.create();
     }
     else if(harvesters.length < 2) {
         roleHarvester.create();
     }
-    else if(upgraders.length < 2) {
+    else if(upgraders.length < 3) {
         roleUpgrader.create();
     }
-    else if(builders.length < 2 && Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES).length > 0) {
+    else if(builders.length < 1 && Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES).length > 0) {
         roleBuilder.create();
     }
-    else if(repairers.length < 2 && needsRepairCount > 0){
+    else if(repairers.length < 1 && needsRepairCount > 0){
         roleRepairer.create();
     }
 
@@ -42,9 +42,11 @@ module.exports.loop = function () {
         _.forEach(repairers, function(repairer){ repairer.suicide(); });
     }
 
+    /*
     if (Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES).length == 0) {
         _.forEach(builders, function(builder) { builder.suicide(); });
     }
+    */
 
     for(var name in Game.creeps) {
         var creep = Game.creeps[name];
