@@ -38,7 +38,7 @@ module.exports.loop = function() {
         roleBuilder.create();
     } else if (repairers.length < 2 && needsRepairCount > 0) {
         roleRepairer.create();
-    } else if (explorers.length < 1) {
+    } else if (explorers.length < 2) {
         roleExplorer.create();
     }
 
