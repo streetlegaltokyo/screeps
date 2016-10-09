@@ -28,7 +28,7 @@ module.exports.loop = function () {
     else if(harvesters.length < 1) {
         roleHarvester.create();
     }
-    else if(upgraders.length < 1) {
+    else if(upgraders.length < 2) {
         roleUpgrader.create();
     }
     else if(builders.length < 2 && Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES).length > 0) {
@@ -42,11 +42,11 @@ module.exports.loop = function () {
         _.forEach(repairers, function(repairer){ repairer.suicide(); });
     }
 
-    /*
+
     if (Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES).length == 0) {
         _.forEach(builders, function(builder) { builder.suicide(); });
     }
-    */
+
 
     for(var name in Game.creeps) {
         var creep = Game.creeps[name];

@@ -110,7 +110,8 @@ var roleMiner = {
             var container = creep.findClosestContainerThatIsNotFull();
             if (container && creep.transfer(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(container);
-            } else {
+            }
+            else if (!container) {
                 var target = creep.findClosestPlaceToDumpEnergy();
                 if (target && creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(target);
