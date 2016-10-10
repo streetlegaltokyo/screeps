@@ -4,6 +4,7 @@ var roleBuilder = require('role.builder');
 var roleRepairer = require('role.repairer');
 var roleMiner = require('role.miner');
 var roleMelee = require('role.melee');
+var roleRanged = require('role.ranged');
 var roleExplorer = require('role.explorer')
 var towerStructure = require('structure.tower');
 var helpers = require('global.helpers');
@@ -19,6 +20,7 @@ module.exports.loop = function() {
     var repairers = _.filter(Game.creeps, (creep) => creep.memory.role == 'repairer');
     var miners = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner');
     var melees = _.filter(Game.creeps, (creep) => creep.memory.role == 'melee');
+    var ranged = _.filter(Game.creeps, (creep) => creep.memory.role == 'ranged');
     var explorers = _.filter(Game.creeps, (creep) => creep.memory.role == 'explorer');
     var towers = _.filter(Game.structures, (structure) => structure.structureType == STRUCTURE_TOWER);
     var needsRepairCount = Game.spawns['Spawn1'].room.find(FIND_STRUCTURES, {
@@ -26,8 +28,11 @@ module.exports.loop = function() {
             return s.hits < (s.hitsMax * .7)
         }
     }).length;
+    var hostileCreepsCount = Game.spawns['Spawn1'].room.find(FIND_HOSTILE_CREEPS).length;
 
-
+    if(hostileCreepsCount > 0 && ranged.count < Math.ceil(hostileCreepsCount*.7) {
+      roleRanged.create();
+    }
     if (miners.length < 4) {
         roleMiner.create();
     } else if (harvesters.length < 1) {
@@ -74,6 +79,9 @@ module.exports.loop = function() {
         }
         if (creep.memory.role == 'melee') {
             roleMelee.run(creep);
+        }
+        if (creep.memory.role == 'ranged') {
+            roleRanged.run(creep);
         }
         if (creep.memory.role == 'explorer') {
             roleExplorer.run(creep);
