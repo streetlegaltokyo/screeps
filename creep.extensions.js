@@ -6,14 +6,14 @@ var creepExtensions = {
 		};
 
 		Creep.prototype.findClosestPlaceToDumpEnergy = function() {
-				var priority1 = this.pos.findClosestByPath(FIND_STRUCTURES, {
+		    var priority1 = this.pos.findClosestByPath(FIND_STRUCTURES, {
 						filter: (structure) => {
 								return (structure.structureType == STRUCTURE_EXTENSION ||
 												structure.structureType == STRUCTURE_SPAWN) && structure.energy < structure.energyCapacity;
 						}
 				});
 
-				if(priority1) { return priority1; }
+				//if(priority1) { return priority1; }
 
 				var priority2 = this.pos.findClosestByPath(FIND_STRUCTURES, {
 						filter: (structure) => {
@@ -21,7 +21,7 @@ var creepExtensions = {
 						}
 				});
 
-				if(priority2) { return priority2; }
+				//if(priority2) { return priority2; }
 
 				var priority3 = this.pos.findClosestByPath(FIND_STRUCTURES, {
 						filter: (structure) => {
@@ -29,7 +29,26 @@ var creepExtensions = {
 						}
 				});
 
-				return priority3;
+				//return priority3;
+
+		  //  if(Game.spawns['Spawn1'].room.find(FIND_HOSTILE_CREEPS).length > 0) {
+		  //      if(priority2) {
+		  //          return priority2;
+		  //      } else if (priority1) {
+		  //          return priority1;
+		  //      } else {
+		  //          return priority3;
+		  //      }
+		  //  } else {
+		        if(priority1) {
+		            return priority1;
+		        } else if (priority2) {
+		            return priority2;
+		        } else {
+		            return priority3;
+		        }
+		  //  }
+
 		};
 
 		Creep.prototype.findClosestContainerThatIsNotFull = function() {

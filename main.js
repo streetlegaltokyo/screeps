@@ -30,20 +30,23 @@ module.exports.loop = function() {
     }).length;
     var hostileCreepsCount = Game.spawns['Spawn1'].room.find(FIND_HOSTILE_CREEPS).length;
 
-    if(hostileCreepsCount > 0 && ranged.count < Math.ceil(hostileCreepsCount*.7) {
-      roleRanged.create();
-    }
+    // if(hostileCreepsCount > 0 && melees.length < 2) {
+    //     roleMelee.create();
+    // }
+    // if(hostileCreepsCount > 0 && ranged.length < 4) {
+    //   roleRanged.create();
+    // }
     if (miners.length < 4) {
         roleMiner.create();
-    } else if (harvesters.length < 1) {
+    } else if (harvesters.length < 2) {
         roleHarvester.create();
-    } else if (upgraders.length < 2) {
+    } else if (upgraders.length < 3) {
         roleUpgrader.create();
-    } else if (builders.length < 2 && Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES).length > 0) {
+    } else if (builders.length < 1 && Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES).length > 0) {
         roleBuilder.create();
-    } else if (repairers.length < 2 && needsRepairCount > 0) {
+    } else if (repairers.length < 1 && needsRepairCount > 0) {
         roleRepairer.create();
-    } else if (explorers.length < 2) {
+    } else if (explorers.length < 3) {
         roleExplorer.create();
     }
 

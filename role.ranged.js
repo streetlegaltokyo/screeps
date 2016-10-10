@@ -1,11 +1,11 @@
 var rangedBuilder = {
     create: function() {
         var tiers = [{
-            body: [RANGED_ATTACK, MOVE]
+            body: [TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, RANGED_ATTACK, MOVE]
         }, {
-            body: [RANGED_ATTACK, RANGED_ATTACK, MOVE, MOVE]
+            body: [TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, RANGED_ATTACK, RANGED_ATTACK, MOVE, MOVE]
         }, {
-            body: [RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, MOVE, MOVE, MOVE]
+            body: [TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, MOVE, MOVE, MOVE]
         }];
 
         var body = null;
@@ -22,12 +22,13 @@ var rangedBuilder = {
         if (name) console.log("Spawning Ranged Attacker, " + name);
     },
     run: function(creep) {
-        var target = creep.findClosestByPath(FIND_HOSTILE_CREEPS);
-        if (target && creep.attack(target) == ERR_NOT_IN_RANGE) {
+        var target = creep.pos.findClosestByPath(FIND_HOSTILE_CREEPS);
+        if (target && creep.rangedAttack(target) == ERR_NOT_IN_RANGE) {
             creep.moveTo(target);
-        } else if (!target) {
-            creep.moveTo(creep.room.controller);
         }
+        // else if (!target) {
+        //     creep.moveTo(creep.room.controller);
+        // }
     }
 };
 

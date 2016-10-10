@@ -18,6 +18,12 @@ var towerExtensions = {
 			return _.first(orderedStructures);
 		};
 
+	StructureTower.prototype.findClosestInjuredCreep = function() {
+	    return this.pos.findClosestByRange(FIND_MY_CREEPS, {
+	        filter: function(c) { return c.hits < c.hitsMax;}
+	    })
+	}
+
     StructureTower.prototype.findClosestStructureNeedingRepair = function() {
 			var reallyWeak = this.pos.findClosestByPath(FIND_STRUCTURES, {
 				filter: function(s) {
