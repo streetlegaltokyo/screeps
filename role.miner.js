@@ -62,14 +62,18 @@ var findSourceToHarvest = function(creep) {
     });
     //console.log(JSON.stringify(mySources));
 
-    var mySourcesWithSpaces = _.filter(mySources, function(ms) { return ms.shouldSpawn;});
-    var sourcesWithSpaces = _.map(mySourcesWithSpaces, function(s) { return s.source;});
+    var mySourcesWithSpaces = _.filter(mySources, function(ms) {
+        return ms.shouldSpawn;
+    });
+    var sourcesWithSpaces = _.map(mySourcesWithSpaces, function(s) {
+        return s.source;
+    });
     var source = creep.pos.findClosestByPath(sourcesWithSpaces);
     return source;
 };
 
 var roleMiner = {
-    create: function() {
+    create: function(spawn) {
         var tiers = [{
             body: [WORK, CARRY, MOVE]
         }, {
@@ -83,11 +87,12 @@ var roleMiner = {
         }];
 
         _.forEach(tiers, function(tier) {
-            if (Game.spawns.Spawn1.canCreateCreep(tier.body, undefined, {
+            if (spawn.canCreateCreep(tier.body, undefined, {
                     role: 'miner'
                 }) == OK) {
-                var name = Game.spawns.Spawn1.createCreep(tier.body, undefined, {
-                    role: 'miner'
+                var name = spawn.createCreep(tier.body, undefined, {
+                    role: 'miner',
+                    home: spawn.room.name
                 });
                 console.log("Spawning Miner, " + name);
             }
@@ -110,8 +115,7 @@ var roleMiner = {
             var container = creep.findClosestContainerThatIsNotFull();
             if (container && creep.transfer(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(container);
-            }
-            else if (!container) {
+            } else if (!container) {
                 var target = creep.findClosestPlaceToDumpEnergy();
                 if (target && creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(target);

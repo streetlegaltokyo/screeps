@@ -1,19 +1,20 @@
 var claimerBuilder = {
-    create: function() {
+    create: function(spawn) {
         var tiers = [{
             body: [CLAIM, MOVE]
         }];
 
         var body = null;
         _.forEach(tiers, function(tier) {
-            if (Game.spawns.Spawn1.canCreateCreep(tier.body, undefined, {
+            if (spawn.canCreateCreep(tier.body, undefined, {
                     role: 'claimer'
                 }) == OK) {
                 body = tier.body;
             }
         });
-        var name = Game.spawns.Spawn1.createCreep(body, undefined, {
+        var name = spawn.createCreep(body, undefined, {
             destination: 'W56S68',
+            home: spawn.room.name,
             role: 'claimer'
         });
         if (name) console.log("Spawning Claimer, " + name);

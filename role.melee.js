@@ -1,7 +1,7 @@
 var helpers = require('global.helpers');
 
 var meleeBuilder = {
-    create: function() {
+    create: function(spawn) {
         var tiers = [{
             body: [TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, ATTACK, MOVE]
         }, {
@@ -12,14 +12,15 @@ var meleeBuilder = {
 
         var body = null;
         _.forEach(tiers, function(tier) {
-            if (Game.spawns.Spawn1.canCreateCreep(tier.body, undefined, {
+            if (spawn.canCreateCreep(tier.body, undefined, {
                     role: 'melee'
                 }) == OK) {
                 body = tier.body;
             }
         });
-        var name = Game.spawns.Spawn1.createCreep(body, undefined, {
-            role: 'melee'
+        var name = spawn.createCreep(body, undefined, {
+            role: 'melee',
+            home: spawn.room.name
         });
         if (name) console.log("Spawning Attacker, " + name);
     },

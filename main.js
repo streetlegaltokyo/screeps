@@ -15,56 +15,89 @@ var towerExtensions = require('tower.extensions');
 module.exports.loop = function() {
     creepExtensions.register();
     towerExtensions.register();
-    var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
-    var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
-    var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
-    var repairers = _.filter(Game.creeps, (creep) => creep.memory.role == 'repairer');
-    var miners = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner');
-    var melees = _.filter(Game.creeps, (creep) => creep.memory.role == 'melee');
-    var ranged = _.filter(Game.creeps, (creep) => creep.memory.role == 'ranged');
-    var explorers = _.filter(Game.creeps, (creep) => creep.memory.role == 'explorer');
-    var claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer');
-    var towers = _.filter(Game.structures, (structure) => structure.structureType == STRUCTURE_TOWER);
-    var needsRepairCount = Game.spawns['Spawn1'].room.find(FIND_STRUCTURES, {
-        filter: function(s) {
-            return s.hits < (s.hitsMax * .7)
+
+    for (var spawn in Game.spawns) {
+        var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester' && creep.memory.home == spawn.room.name);
+        var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader' && creep.memory.home == spawn.room.name);
+        var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder' && creep.memory.home == spawn.room.name);
+        var repairers = _.filter(Game.creeps, (creep) => creep.memory.role == 'repairer' && creep.memory.home == spawn.room.name);
+        var miners = _.filter(Game.creeps, (creep) => creep.memory.role == 'miner' && creep.memory.home == spawn.room.name);
+        var melees = _.filter(Game.creeps, (creep) => creep.memory.role == 'melee' && creep.memory.home == spawn.room.name);
+        var ranged = _.filter(Game.creeps, (creep) => creep.memory.role == 'ranged' && creep.memory.home == spawn.room.name);
+        var explorers = _.filter(Game.creeps, (creep) => creep.memory.role == 'explorer' && creep.memory.home == spawn.room.name);
+        var claimers = _.filter(Game.creeps, (creep) => creep.memory.role == 'claimer' && creep.memory.home == spawn.room.name);
+        var towers = _.filter(Game.structures, (structure) => structure.structureType == STRUCTURE_TOWER);
+        var needsRepairCount = spawn.room.find(FIND_STRUCTURES, {
+            filter: function(s) {
+                return s.hits < (s.hitsMax * .7);
+            }
+        }).length;
+        var hostileCreepsCount = spawn.room.find(FIND_HOSTILE_CREEPS).length;
+
+        if (spawn.room.name == 'W56S69') {
+            if (claimers.length < 0) {
+                roleClaimer.create(spawn);
+            }
+            if (miners.length < 4) {
+                roleMiner.create(spawn);
+            } else if (harvesters.length < 2) {
+                roleHarvester.create(spawn);
+            } else if (upgraders.length < 6) {
+                roleUpgrader.create(spawn);
+            } else if (builders.length < 1 && spawn.room.find(FIND_CONSTRUCTION_SITES).length > 0) {
+                roleBuilder.create(spawn);
+            } else if (repairers.length < 1 && needsRepairCount > 0) {
+                roleRepairer.create(spawn);
+            } else if (explorers.length < 3) {
+                roleExplorer.create(spawn);
+            }
+        } else if (spawn.room.name == 'W56S68') {
+            if (claimers.length < 0) {
+                roleClaimer.create(spawn);
+            }
+            if (miners.length < 3) {
+                roleMiner.create(spawn);
+            } else if (harvesters.length < 0) {
+                roleHarvester.create(spawn);
+            } else if (upgraders.length < 2) {
+                roleUpgrader.create(spawn);
+            } else if (builders.length < 1 && spawn.room.find(FIND_CONSTRUCTION_SITES).length > 0) {
+                roleBuilder.create(spawn);
+            } else if (repairers.length < 1 && needsRepairCount > 0) {
+                roleRepairer.create(spawn);
+            } else if (explorers.length < 3) {
+                roleExplorer.create(spawn);
+            }
         }
-    }).length;
-    var hostileCreepsCount = Game.spawns['Spawn1'].room.find(FIND_HOSTILE_CREEPS).length;
 
-    // if(hostileCreepsCount > 0 && melees.length < 2) {
-    //     roleMelee.create();
-    // }
-    // if(hostileCreepsCount > 0 && ranged.length < 4) {
-    //   roleRanged.create();
-    // }
-    if (claimers.length < 0) {
-        roleClaimer.create();
-    }
-    if (miners.length < 4) {
-        roleMiner.create();
-    } else if (harvesters.length < 2) {
-        roleHarvester.create();
-    } else if (upgraders.length < 6) {
-        roleUpgrader.create();
-    } else if (builders.length < 1 && Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES).length > 0) {
-        roleBuilder.create();
-    } else if (repairers.length < 1 && needsRepairCount > 0) {
-        roleRepairer.create();
-    } else if (explorers.length < 3) {
-        roleExplorer.create();
-    }
+        // if (claimers.length < 0) {
+        //     roleClaimer.create(spawn);
+        // }
+        // if (miners.length < 4) {
+        //     roleMiner.create(spawn);
+        // } else if (harvesters.length < 2) {
+        //     roleHarvester.create(spawn);
+        // } else if (upgraders.length < 6) {
+        //     roleUpgrader.create(spawn);
+        // } else if (builders.length < 1 && spawn.room.find(FIND_CONSTRUCTION_SITES).length > 0) {
+        //     roleBuilder.create(spawn);
+        // } else if (repairers.length < 1 && needsRepairCount > 0) {
+        //     roleRepairer.create(spawn);
+        // } else if (explorers.length < 3) {
+        //     roleExplorer.create(spawn);
+        // }
 
-    if (needsRepairCount == 0) {
-        _.forEach(repairers, function(repairer) {
-            repairer.suicide();
-        });
-    }
+        if (needsRepairCount == 0) {
+            _.forEach(repairers, function(repairer) {
+                repairer.suicide();
+            });
+        }
 
-    if (Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES).length == 0) {
-        _.forEach(builders, function(builder) {
-            builder.suicide();
-        });
+        if (spawn.room.find(FIND_CONSTRUCTION_SITES).length == 0) {
+            _.forEach(builders, function(builder) {
+                builder.suicide();
+            });
+        }
     }
 
 

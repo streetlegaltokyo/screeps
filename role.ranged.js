@@ -1,5 +1,5 @@
 var rangedBuilder = {
-    create: function() {
+    create: function(spawn) {
         var tiers = [{
             body: [TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, RANGED_ATTACK, MOVE]
         }, {
@@ -10,14 +10,15 @@ var rangedBuilder = {
 
         var body = null;
         _.forEach(tiers, function(tier) {
-            if (Game.spawns.Spawn1.canCreateCreep(tier.body, undefined, {
+            if (spawn.canCreateCreep(tier.body, undefined, {
                     role: 'ranged'
                 }) == OK) {
                 body = tier.body;
             }
         });
-        var name = Game.spawns.Spawn1.createCreep(body, undefined, {
-            role: 'ranged'
+        var name = spawn.createCreep(body, undefined, {
+            role: 'ranged',
+            home: spawn.room.name
         });
         if (name) console.log("Spawning Ranged Attacker, " + name);
     },
