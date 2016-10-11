@@ -38,14 +38,14 @@ module.exports.loop = function() {
     // if(hostileCreepsCount > 0 && ranged.length < 4) {
     //   roleRanged.create();
     // }
-    if(claimers.length < 1) {
-      roleClaimer.create();
+    if (claimers.length < 0) {
+        roleClaimer.create();
     }
     if (miners.length < 4) {
         roleMiner.create();
     } else if (harvesters.length < 2) {
         roleHarvester.create();
-    } else if (upgraders.length < 3) {
+    } else if (upgraders.length < 6) {
         roleUpgrader.create();
     } else if (builders.length < 1 && Game.spawns['Spawn1'].room.find(FIND_CONSTRUCTION_SITES).length > 0) {
         roleBuilder.create();
