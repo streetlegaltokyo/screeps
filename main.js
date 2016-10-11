@@ -43,7 +43,7 @@ module.exports.loop = function() {
 
         if(name == "Spawn1" &&
             _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader' && creep.memory.home == 'W56S68').length < 2) {
-                var n = roleBuilder.create(spawn, 'W56S68');
+                var n = roleUpgrader.create(spawn, 'W56S68');
             }
 
 
