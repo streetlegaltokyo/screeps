@@ -1,7 +1,7 @@
 var helpers = require('global.helpers');
 
 var roleUpgrader = {
-    create: function(spawn) {
+    create: function(spawn, room) {
         var tiers = [{
             body: [WORK, CARRY, MOVE]
         }, {
@@ -20,7 +20,7 @@ var roleUpgrader = {
                 }) == OK) {
                 var name = spawn.createCreep(tier.body, undefined, {
                     role: 'upgrader',
-                    home: spawn.room.name
+                    home: room || spawn.room.name
                 });
                 console.log("Spawning Upgrader, " + name);
             }

@@ -16,7 +16,8 @@ module.exports.loop = function() {
     creepExtensions.register();
     towerExtensions.register();
 
-    for (var spawn in Game.spawns) {
+    for (var name in Game.spawns) {
+        var spawn = Game.spawns[name];
         var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester' && creep.memory.home == spawn.room.name);
         var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader' && creep.memory.home == spawn.room.name);
         var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder' && creep.memory.home == spawn.room.name);
@@ -34,6 +35,19 @@ module.exports.loop = function() {
         }).length;
         var hostileCreepsCount = spawn.room.find(FIND_HOSTILE_CREEPS).length;
 
+
+        if(name == "Spawn1" &&
+            _.filter(Game.creeps, (creep) => creep.memory.role == 'builder' && creep.memory.home == 'W56S68').length < 2) {
+                var n = roleBuilder.create(spawn, 'W56S68');
+            }
+
+        if(name == "Spawn1" &&
+            _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader' && creep.memory.home == 'W56S68').length < 2) {
+                var n = roleBuilder.create(spawn, 'W56S68');
+            }
+
+
+
         if (spawn.room.name == 'W56S69') {
             if (claimers.length < 0) {
                 roleClaimer.create(spawn);
@@ -42,13 +56,13 @@ module.exports.loop = function() {
                 roleMiner.create(spawn);
             } else if (harvesters.length < 2) {
                 roleHarvester.create(spawn);
-            } else if (upgraders.length < 6) {
+            } else if (upgraders.length < 2) {
                 roleUpgrader.create(spawn);
-            } else if (builders.length < 1 && spawn.room.find(FIND_CONSTRUCTION_SITES).length > 0) {
+            } else if (builders.length < 2 && spawn.room.find(FIND_CONSTRUCTION_SITES).length > 0) {
                 roleBuilder.create(spawn);
             } else if (repairers.length < 1 && needsRepairCount > 0) {
                 roleRepairer.create(spawn);
-            } else if (explorers.length < 3) {
+            } else if (explorers.length < 1) {
                 roleExplorer.create(spawn);
             }
         } else if (spawn.room.name == 'W56S68') {
@@ -65,27 +79,10 @@ module.exports.loop = function() {
                 roleBuilder.create(spawn);
             } else if (repairers.length < 1 && needsRepairCount > 0) {
                 roleRepairer.create(spawn);
-            } else if (explorers.length < 3) {
+            } else if (explorers.length < 0) {
                 roleExplorer.create(spawn);
             }
         }
-
-        // if (claimers.length < 0) {
-        //     roleClaimer.create(spawn);
-        // }
-        // if (miners.length < 4) {
-        //     roleMiner.create(spawn);
-        // } else if (harvesters.length < 2) {
-        //     roleHarvester.create(spawn);
-        // } else if (upgraders.length < 6) {
-        //     roleUpgrader.create(spawn);
-        // } else if (builders.length < 1 && spawn.room.find(FIND_CONSTRUCTION_SITES).length > 0) {
-        //     roleBuilder.create(spawn);
-        // } else if (repairers.length < 1 && needsRepairCount > 0) {
-        //     roleRepairer.create(spawn);
-        // } else if (explorers.length < 3) {
-        //     roleExplorer.create(spawn);
-        // }
 
         if (needsRepairCount == 0) {
             _.forEach(repairers, function(repairer) {
