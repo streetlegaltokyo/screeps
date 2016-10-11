@@ -30,15 +30,19 @@ var roleHarvester = {
                 creep.moveTo(target);
             }
         } else if (creep.carry.energy == 0) {
-            var energy = creep.pos.findClosestByRange(FIND_DROPPED_ENERGY);
-            if (energy && creep.targetIsInRange(energy, 4)) {
-                if (creep.pickup(energy) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(energy);
-                }
+            if (creep.room.name != creep.memory.home) {
+                creep.moveTo(creep.pos.findClosestByPath(creep.room.findExitTo(creep.memory.home)));
             } else {
-                var container = creep.findClosestContainerWithEnergy();
-                if (creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(container);
+                var energy = creep.pos.findClosestByRange(FIND_DROPPED_ENERGY);
+                if (energy && creep.targetIsInRange(energy, 4)) {
+                    if (creep.pickup(energy) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(energy);
+                    }
+                } else {
+                    var container = creep.findClosestContainerWithEnergy();
+                    if (creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(container);
+                    }
                 }
             }
         } else {
