@@ -2,7 +2,7 @@ var claimerBuilder = {
     create: function() {
         var tiers = [{
             body: [CLAIM,MOVE]
-        }
+        }];
 
         var body = null;
         _.forEach(tiers, function(tier) {
