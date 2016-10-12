@@ -69,15 +69,15 @@ module.exports.loop = function() {
             if (claimers.length < 0) {
                 roleClaimer.create(spawn);
             }
-            if (miners.length < 1) {
+            if (miners.length < 2) {
                 roleMiner.create(spawn);
-            } else if (harvesters.length < 1) {
+            } else if (harvesters.length < 4) {
                 roleHarvester.create(spawn);
-            } else if (upgraders.length < 2) {
+            } else if (upgraders.length < 6) {
                 roleUpgrader.create(spawn);
             } else if (builders.length < 2 && spawn.room.find(FIND_CONSTRUCTION_SITES).length > 0) {
                 roleBuilder.create(spawn);
-            } else if (repairers.length < 1 && needsRepairCount > 0) {
+            } else if (repairers.length < 2 && needsRepairCount > 0) {
                 roleRepairer.create(spawn);
             } else if (explorers.length < 0) {
                 roleExplorer.create(spawn);

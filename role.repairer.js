@@ -3,7 +3,7 @@ var helpers = require('global.helpers');
 var roleRepairer = {
     create: function(spawn) {
         var tiers = [{
-            body: [WORK, CARRY, MOVE]
+            body: [WORK, CARRY, MOVE, MOVE]
         }, {
             body: [WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE]
         }, {

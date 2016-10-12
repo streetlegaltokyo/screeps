@@ -3,7 +3,7 @@ var helpers = require('global.helpers');
 var roleBuilder = {
     create: function(spawn, room) {
         var tiers = [{
-            body: [WORK, CARRY, MOVE]
+            body: [WORK, CARRY, MOVE, MOVE]
         }, {
             body: [WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE]
         }, {
