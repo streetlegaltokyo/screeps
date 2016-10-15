@@ -7,3 +7,5 @@ var sourceExtensions = {
     Source.prototype.findCreepsThatMineMe = findCreepsThatMineMe;
   }
 };
+
+module.exports = sourceExtensions;
