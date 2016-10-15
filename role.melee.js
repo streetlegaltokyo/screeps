@@ -3,11 +3,11 @@ var helpers = require('global.helpers');
 var meleeBuilder = {
     create: function(spawn, destination, home) {
         var tiers = [{
-            body: [TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, ATTACK, MOVE]
+            body: [TOUGH, TOUGH, ATTACK, MOVE, MOVE, MOVE]
         }, {
-            body: [TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, ATTACK, ATTACK, MOVE, MOVE]
+            body: [TOUGH, TOUGH, ATTACK, ATTACK, MOVE, MOVE, MOVE, MOVE]
         }, {
-            body: [TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, ATTACK, ATTACK, ATTACK, MOVE, MOVE, MOVE]
+            body: [TOUGH, TOUGH, ATTACK, ATTACK, ATTACK, MOVE, MOVE, MOVE, MOVE, MOVE]
         }];
 
         var body = null;
@@ -29,7 +29,9 @@ var meleeBuilder = {
       if (creep.room.name != creep.memory.destination) {
           creep.moveTo(creep.pos.findClosestByPath(creep.room.findExitTo(creep.memory.destination)));
       } else {
-        var target = creep.pos.findClosestByPath(FIND_HOSTILE_CREEPS);
+        var target = creep.pos.findClosestByPath(FIND_HOSTILE_SPAWNS);
+        if(!target) target = creep.pos.findClosestByPath(FIND_HOSTILE_CREEPS);
+        
         if (target && creep.attack(target) == ERR_NOT_IN_RANGE) {
             creep.moveTo(target);
         }
