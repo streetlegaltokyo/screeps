@@ -2,7 +2,7 @@ var helpers = require('global.helpers');
 var roleUpgrader = require('role.upgrader');
 
 var roleHarvester = {
-    create: function(spawn) {
+    create: function(spawn, room) {
         var tiers = [{
             body: [CARRY, CARRY, MOVE, MOVE]
         }, {
@@ -17,7 +17,7 @@ var roleHarvester = {
                 }) == OK) {
                 var name = spawn.createCreep(tier.body, undefined, {
                     role: 'harvester',
-                    home: spawn.room.name
+                    home: room || spawn.room.name
                 });
                 console.log("Spawning Harvester, " + name);
             }

@@ -1,7 +1,7 @@
 var helpers = require('global.helpers');
 
 var meleeBuilder = {
-    create: function(spawn) {
+    create: function(spawn, room) {
         var tiers = [{
             body: [TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, ATTACK, MOVE]
         }, {
@@ -20,7 +20,7 @@ var meleeBuilder = {
         });
         var name = spawn.createCreep(body, undefined, {
             role: 'melee',
-            home: spawn.room.name
+            home: room || spawn.room.name
         });
         if (name) console.log("Spawning Attacker, " + name);
     },

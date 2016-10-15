@@ -36,10 +36,10 @@ module.exports.loop = function() {
         var hostileCreepsCount = spawn.room.find(FIND_HOSTILE_CREEPS).length;
 
 
-        // if(name == "Spawn1" &&
-        //     _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester' && creep.memory.home == 'W56S68').length < 1) {
-        //         var n = roleHarvester.create(spawn, 'W56S68');
-        //     }
+        if(name == "Spawn1" &&
+            _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester' && creep.memory.home == 'W56S68').length < 1) {
+                var n = roleHarvester.create(spawn, 'W56S68');
+            }
 
         // if(name == "Spawn1" &&
         //     _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader' && creep.memory.home == 'W56S68').length < 2) {
@@ -71,9 +71,9 @@ module.exports.loop = function() {
             }
             if (miners.length < 2) {
                 roleMiner.create(spawn);
-            } else if (harvesters.length < 4) {
+            } else if (harvesters.length < 3) {
                 roleHarvester.create(spawn);
-            } else if (upgraders.length < 6) {
+            } else if (upgraders.length < 2) {
                 roleUpgrader.create(spawn);
             } else if (builders.length < 2 && spawn.room.find(FIND_CONSTRUCTION_SITES).length > 0) {
                 roleBuilder.create(spawn);
