@@ -51,7 +51,7 @@ module.exports.loop = function() {
 
 
         if (spawn.room.name == 'W56S69') {
-            if(melees.length < 4) {
+            if(melees.length < 0) {
               roleMelee.create(spawn, 'W56S67', 'W56S69')
             } else if (claimers.length < 0) {
                 roleClaimer.create(spawn);
@@ -65,11 +65,12 @@ module.exports.loop = function() {
                 roleBuilder.create(spawn);
             } else if (repairers.length < 1 && needsRepairCount > 0) {
                 roleRepairer.create(spawn);
-            } else if (_.filter(explorers, (creep) => creep.targetSourceId == '57ef9d0b86f108ae6e60d2c0').length < 2) {
-                roleExplorer.create(spawn,'W56S68','W56S67','57ef9d0b86f108ae6e60d2c0');
-            } else if (_.filter(explorers, (creep) => creep.targetSourceId == '57ef9d0b86f108ae6e60d2c2').length < 2) {
-                roleExplorer.create(spawn,'W56S68','W56S67','57ef9d0b86f108ae6e60d2c2');
             }
+            // else if (_.filter(explorers, (creep) => creep.targetSourceId == '57ef9d0b86f108ae6e60d2c0').length < 2) {
+            //     roleExplorer.create(spawn,'W56S68','W56S67','57ef9d0b86f108ae6e60d2c0');
+            // } else if (_.filter(explorers, (creep) => creep.targetSourceId == '57ef9d0b86f108ae6e60d2c2').length < 2) {
+            //     roleExplorer.create(spawn,'W56S68','W56S67','57ef9d0b86f108ae6e60d2c2');
+            // }
         } else if (spawn.room.name == 'W56S68') {
             if (claimers.length < 0) {
                 roleClaimer.create(spawn);
