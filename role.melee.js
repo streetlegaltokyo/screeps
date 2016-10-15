@@ -1,7 +1,7 @@
 var helpers = require('global.helpers');
 
 var meleeBuilder = {
-    create: function(spawn, room) {
+    create: function(spawn, destination, home) {
         var tiers = [{
             body: [TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, TOUGH, ATTACK, MOVE]
         }, {
@@ -20,15 +20,20 @@ var meleeBuilder = {
         });
         var name = spawn.createCreep(body, undefined, {
             role: 'melee',
-            home: room || spawn.room.name
+            destination: destination || spawn.room.name,
+            home: home || spawn.room.name
         });
         if (name) console.log("Spawning Attacker, " + name);
     },
     run: function(creep) {
+      if (creep.room.name != creep.memory.destination) {
+          creep.moveTo(creep.pos.findClosestByPath(creep.room.findExitTo(creep.memory.destination)));
+      } else {
         var target = creep.pos.findClosestByPath(FIND_HOSTILE_CREEPS);
         if (target && creep.attack(target) == ERR_NOT_IN_RANGE) {
             creep.moveTo(target);
         }
+      }
         // else if (!target) {
         //     creep.moveTo(creep.room.controller);
         // }
