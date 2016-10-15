@@ -9,8 +9,8 @@ var roleExplorer = require('role.explorer');
 var roleClaimer = require('role.claimer');
 var towerStructure = require('structure.tower');
 var helpers = require('global.helpers');
-var creepExtensions = require('creep.extensions');
-var towerExtensions = require('tower.extensions');
+var creepExtensions = require('extensions.creep');
+var towerExtensions = require('extensions.tower');
 var spawnExtensions = require('extensions.spawn');
 
 module.exports.loop = function() {
