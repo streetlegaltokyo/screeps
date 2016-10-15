@@ -12,15 +12,11 @@ var creepExtensions = {
                 }
             });
 
-            //if(priority1) { return priority1; }
-
-            var priority2 = this.pos.findClosestByPath(FIND_STRUCTURES, {
+            var priority2 = _.first(_.sortByOrder(this.pos.find(FIND_STRUCTURES, {
                 filter: (structure) => {
                     return (structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
                 }
-            });
-
-            //if(priority2) { return priority2; }
+            }), ['energy']));
 
             var priority3 = this.pos.findClosestByPath(FIND_STRUCTURES, {
                 filter: (structure) => {
@@ -28,26 +24,28 @@ var creepExtensions = {
                 }
             });
 
-            //return priority3;
+            var hostileCreeps = this.room.find(FIND_HOSTILE_CREEPS);
+            if(hostileCreeps.length > 0 &&
+              this.room.energyAvailable > this.room.energyCapacityAvailable*.3 &&
+              this.room.energyAvailable >= 300) {
 
-            //  if(Game.spawns['Spawn1'].room.find(FIND_HOSTILE_CREEPS).length > 0) {
-            //      if(priority2) {
-            //          return priority2;
-            //      } else if (priority1) {
-            //          return priority1;
-            //      } else {
-            //          return priority3;
-            //      }
-            //  } else {
-            if (priority1) {
-                return priority1;
-            } else if (priority2) {
-                return priority2;
+                if (priority2) {
+                    return priority2;
+                } else if (priority1) {
+                    return priority1;
+                } else {
+                    return priority3;
+                }
+
             } else {
-                return priority3;
+              if (priority1) {
+                  return priority1;
+              } else if (priority2) {
+                  return priority2;
+              } else {
+                  return priority3;
+              }
             }
-            //  }
-
         };
 
         Creep.prototype.findClosestContainerThatIsNotFull = function() {
