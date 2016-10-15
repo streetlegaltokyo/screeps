@@ -11,10 +11,12 @@ var towerStructure = require('structure.tower');
 var helpers = require('global.helpers');
 var creepExtensions = require('creep.extensions');
 var towerExtensions = require('tower.extensions');
+var spawnExtensions = require('extensions.spawn');
 
 module.exports.loop = function() {
     creepExtensions.register();
     towerExtensions.register();
+    spawnExtensions.register();
 
     for (var name in Game.spawns) {
         var spawn = Game.spawns[name];
