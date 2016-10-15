@@ -12,7 +12,7 @@ var creepExtensions = {
                 }
             });
 
-            var priority2 = _.first(_.sortByOrder(this.pos.find(FIND_STRUCTURES, {
+            var priority2 = _.first(_.sortByOrder(this.room.find(FIND_STRUCTURES, {
                 filter: (structure) => {
                     return (structure.structureType == STRUCTURE_TOWER) && structure.energy < structure.energyCapacity;
                 }
