@@ -38,11 +38,16 @@ var roleRepairer = {
         if (creep.memory.repairing) {
             if (creep.memory.structure) {
                 var structure = Game.getObjectById(creep.memory.structure);
-                if (creep.repair(structure) == ERR_NOT_IN_RANGE) {
+                if (!structure) {
+                    creep.memory.repairing = false;
+                    delete creep.memory.structure;
+                }
+
+                if (structure && creep.repair(structure) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(structure);
                 }
 
-                if (structure.hits == structure.hitsMax) {
+                if (structure && structure.hits == structure.hitsMax) {
                     creep.memory.structure = null;
                 }
             } else {

@@ -39,9 +39,11 @@ var roleHarvester = {
                         creep.moveTo(energy);
                     }
                 } else {
-                    var container = creep.findClosestContainerWithEnergy();
-                    if (creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                        creep.moveTo(container);
+                    var source = creep.findClosestLinkThatHasEnergy();
+                    source = source ? source : creep.findClosestContainerWithEnergy();
+                    //var container = creep.findClosestContainerWithEnergy();
+                    if (creep.withdraw(source, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                        creep.moveTo(source);
                     }
                 }
             }

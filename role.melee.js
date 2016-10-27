@@ -3,11 +3,11 @@ var helpers = require('global.helpers');
 var meleeBuilder = {
     create: function(spawn, destination, home) {
         var tiers = [{
-            body: [TOUGH, TOUGH, ATTACK, MOVE, MOVE, MOVE]
+            body: [TOUGH, TOUGH, MOVE, MOVE, MOVE, ATTACK]
         }, {
-            body: [TOUGH, TOUGH, ATTACK, ATTACK, MOVE, MOVE, MOVE, MOVE]
+            body: [TOUGH, TOUGH, ATTACK, MOVE, MOVE, MOVE, MOVE, ATTACK]
         }, {
-            body: [TOUGH, TOUGH, ATTACK, ATTACK, ATTACK, MOVE, MOVE, MOVE, MOVE, MOVE]
+            body: [TOUGH, TOUGH, ATTACK, ATTACK, MOVE, MOVE, MOVE, MOVE, MOVE, ATTACK]
         }];
 
         var body = null;
@@ -31,14 +31,14 @@ var meleeBuilder = {
       } else {
         var target = creep.pos.findClosestByPath(FIND_HOSTILE_SPAWNS);
         if(!target) target = creep.pos.findClosestByPath(FIND_HOSTILE_CREEPS);
-        
+
         if (target && creep.attack(target) == ERR_NOT_IN_RANGE) {
             creep.moveTo(target);
         }
+        else if (!target && Game.flags.MeleeRally) {
+            creep.moveTo(Game.flags.MeleeRally);
+        }
       }
-        // else if (!target) {
-        //     creep.moveTo(creep.room.controller);
-        // }
     }
 };
 

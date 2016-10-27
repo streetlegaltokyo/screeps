@@ -48,12 +48,34 @@ var creepExtensions = {
             }
         };
 
-        Creep.prototype.findClosestContainerThatIsNotFull = function() {
+        Creep.prototype.findClosestLinkThatHasEnergy = function() {
             return this.pos.findClosestByPath(FIND_STRUCTURES, {
+                filter: (structure) => {
+                    return structure.structureType == STRUCTURE_LINK && structure.energy > 0;
+                }
+            });
+        }
+
+        Creep.prototype.findClosestContainerThatIsNotFull = function() {
+            var links = _.filter(Game.structures, (s) => s.structureType == STRUCTURE_LINK);
+
+            if(links.length >= 2) {
+                var link = this.pos.findClosestByPath(FIND_STRUCTURES, {
+                    filter: function(c) {
+                        return c.structureType == STRUCTURE_LINK && c.energy < c.energyCapacity;
+                    }
+                });
+
+                if(link) return link;
+            }
+
+            var container = this.pos.findClosestByPath(FIND_STRUCTURES, {
                 filter: function(c) {
                     return c.structureType == STRUCTURE_CONTAINER && c.store.energy < c.storeCapacity;
                 }
             });
+
+            if(container) return container;
         };
 
         Creep.prototype.findClosestContainerWithEnergy = function() {
